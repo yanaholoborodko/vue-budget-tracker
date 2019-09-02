@@ -23,13 +23,13 @@
             <ul id='dropdown' class='dropdown-content'>
               <li>
                 <a href="#" class="black-text">
-                  <i class="material-icons">account_circle</i>Профиль
+                  <i class="material-icons">account_circle</i>Profile
                 </a>
               </li>
               <li class="divider" tabindex="-1"></li>
               <li>
                 <a href="#" class="black-text">
-                  <i class="material-icons">assignment_return</i>Выйти
+                  <i class="material-icons">assignment_return</i>Log out
                 </a>
               </li>
             </ul>
@@ -40,19 +40,19 @@
 
     <ul class="sidenav app-sidenav open">
       <li>
-        <a href="#" class="waves-effect waves-orange pointer">Счет</a>
+        <a href="#" class="waves-effect waves-orange pointer">Account</a>
       </li>
       <li>
-        <a href="#" class="waves-effect waves-orange pointer">История</a>
+        <a href="#" class="waves-effect waves-orange pointer">History</a>
       </li>
       <li>
-        <a href="#" class="waves-effect waves-orange pointer">Планирование</a>
+        <a href="#" class="waves-effect waves-orange pointer">Planning</a>
       </li>
       <li>
-        <a href="#" class="waves-effect waves-orange pointer">Новая запись</a>
+        <a href="#" class="waves-effect waves-orange pointer">New Record</a>
       </li>
       <li>
-        <a href="#" class="waves-effect waves-orange pointer">Категории</a>
+        <a href="#" class="waves-effect waves-orange pointer">Categories</a>
       </li>
     </ul>
 

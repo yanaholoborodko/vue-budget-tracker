@@ -1,7 +1,7 @@
 <template>
   <form class="card auth-card">
     <div class="card-content">
-      <span class="card-title">Домашняя бухгалтерия</span>
+      <span class="card-title">Budget tracker</span>
       <div class="input-field">
         <input
                 id="email"
@@ -16,7 +16,7 @@
                 type="password"
                 class="validate"
         >
-        <label for="password">Пароль</label>
+        <label for="password">Password</label>
         <small class="helper-text invalid">Password</small>
       </div>
       <div class="input-field">
@@ -25,13 +25,13 @@
                 type="text"
                 class="validate"
         >
-        <label for="name">Имя</label>
+        <label for="name">Name</label>
         <small class="helper-text invalid">Name</small>
       </div>
       <p>
         <label>
           <input type="checkbox" />
-          <span>С правилами согласен</span>
+          <span>I agree with all the privacy policy statements</span>
         </label>
       </p>
     </div>
@@ -41,14 +41,14 @@
                 class="btn waves-effect waves-light auth-submit"
                 type="submit"
         >
-          Зарегистрироваться
+          Register
           <i class="material-icons right">send</i>
         </button>
       </div>
 
       <p class="center">
-        Уже есть аккаунт?
-        <a href="/">Войти!</a>
+        Already have an account?
+        <a href="/">Log in</a>
       </p>
     </div>
   </form>

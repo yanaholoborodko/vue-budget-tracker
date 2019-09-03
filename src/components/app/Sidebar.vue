@@ -20,7 +20,7 @@
     props: ['value'],
     data: () => ({
       links: [
-        {title:'Account', url:'/', exact: "true"},
+        {title:'Account', url:'/', exact: true},
         {title:'History', url:'/history'},
         {title:'Planning', url:'/planning'},
         {title:'New Record', url:'/record'},

@@ -12,7 +12,7 @@
   export default {
     computed: {
       layout() {
-        return (this.$route.meta.layout || 'empty') + '-layout'
+        return (this.$route.meta.layout || 'auth') + '-layout'
       }
     },
     components: {

@@ -16,15 +16,16 @@
 </template>
 
 <script>
+  import localeFilter from '@/filters/locale.filter'
   export default {
     props: ['value'],
     data: () => ({
       links: [
-        {title:'Account', url:'/', exact: true},
-        {title:'History', url:'/history'},
-        {title:'Planning', url:'/planning'},
-        {title:'New Record', url:'/record'},
-        {title:'Categories', url:'/categories'}
+        {title: localeFilter('Account'), url:'/', exact: true},
+        {title: localeFilter('History'), url:'/history'},
+        {title: localeFilter('Planning'), url:'/planning'},
+        {title: localeFilter('NewRecord'), url:'/record'},
+        {title: localeFilter('Categories'), url:'/categories'}
       ]
     })
   }

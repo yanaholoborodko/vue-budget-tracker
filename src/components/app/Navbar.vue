@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar orange lighten-1">
+  <nav class="navbar teal lighten-4">
     <div class="nav-wrapper">
       <div class="navbar-left">
         <a href="#" @click.prevent="$emit('burger')">
@@ -13,20 +13,20 @@
           <a class="dropdown-trigger black-text"
             href="#" data-target="dropdown"
             ref="dropdown">
-            USER NAME
+            {{name}}
             <i class="material-icons right">arrow_drop_down</i>
           </a>
 
           <ul id='dropdown' class='dropdown-content'>
             <li>
               <router-link to="/profile" class="black-text">
-                <i class="material-icons">account_circle</i>Profile
+                <i class="material-icons">account_circle</i>{{'Profile' | locale}}
               </router-link>
             </li>
             <li class="divider" tabindex="-1"></li>
             <li>
               <a href="#" class="black-text" @click.prevent="logout">
-                <i class="material-icons">assignment_return</i>Log out
+                <i class="material-icons">assignment_return</i>{{'Logout' | locale}}
               </a>
             </li>
           </ul>
@@ -44,11 +44,17 @@ export default {
     dropdown: null
   }),
   methods: {
-    logout() {
-      console.log("logout");
+    async logout() {
+      await this.$store.dispatch('logout');
       this.$router.push('/login?message=logout');
     }
   },
+  computed: {
+    name() {
+      return this.$store.getters.info.name
+    }
+  },
+  //отрабатывает тогда, когда дом-дерево уже готово
   mounted() {
     this.interval = setInterval(() => {
       this.date = new Date()

@@ -153,7 +153,6 @@ export default {
             : this.info.bill - this.amount
 
           await this.$store.dispatch('updateInfo', {bill})
-          this.$message('The ' + this.type + ' record was created successfully')
           this.$message(localeFilter('RecordCreated'))
           this.$v.$reset()
           this.amount = 1

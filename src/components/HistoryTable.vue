@@ -8,6 +8,7 @@
       <th>{{'Category' | locale}}</th>
       <th>{{'Type' | locale}}</th>
       <th>{{'Open' | locale}}</th>
+      <th>{{'Delete' | locale}}</th>
     </tr>
     </thead>
 
@@ -29,17 +30,33 @@
           <i class="material-icons">open_in_new</i>
         </button>
       </td>
+      <td>
+        <button class="btn-small red btn" @click="deleteRecord(record.id)">
+          <i class="material-icons">delete</i>
+        </button>
+      </td>
     </tr>
     </tbody>
   </table>
 </template>
 
 <script>
+import localeFilter from '@/filters/locale.filter'
 export default {
   props: {
     records: {
       required: true,
       type: Array
+    }
+  },
+  methods: {
+    async deleteRecord(recordId) {
+      try {
+        await this.$store.dispatch('deleteRecord', recordId)
+        this.$message(localeFilter('recDeleted'))
+        const recordIndex = this.records.findIndex(r => r.id === recordId)
+        this.records.splice(recordIndex, 1)
+      } catch (e) {}
     }
   }
 }

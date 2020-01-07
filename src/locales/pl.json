@@ -5,6 +5,7 @@
   "Edit" : "Edytuj",
   "EnterName" : "Wpisz swoje imię",
   "Update" : "Aktualizuj",
+  "Delete" : "Usuń",
   "Account": "Konto",
   "History": "Historia",
   "Planning": "Planowanie",
@@ -65,5 +66,6 @@
   "EmailInUse": "Adres e-mail jest już w użyciu",
   "Error": "Wystąpił błąd",
   "Details" : "Szczegóły",
-  "Home" : "Główna"
+  "Home" : "Główna",
+  "recDeleted" : "Rekord został usunięty pomyślnie"
 }

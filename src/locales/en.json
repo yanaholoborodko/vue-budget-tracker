@@ -5,6 +5,7 @@
   "Edit" : "Edit",
   "EnterName" : "Please enter your name",
   "Update" : "Update",
+  "Delete" : "Delete",
   "Account": "Account",
   "History": "History",
   "Planning": "Planning",
@@ -65,5 +66,6 @@
   "EmailInUse": "Email is already in use",
   "Error": "Error",
   "Details" : "Details",
-  "Home" : "Home"
+  "Home" : "Home",
+  "recDeleted" : "The record was deleted successfully"
 }

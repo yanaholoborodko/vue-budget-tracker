@@ -109,7 +109,7 @@ export default {
           limit: this.limit
         }
         await this.$store.dispatch('updateCategory', categoryData)
-        this.$message(this.$message(localeFilter('CatUpdated')))
+        this.$message(localeFilter('CatUpdated'))
         this.$emit('updated', categoryData)
       } catch (e) {}
     }

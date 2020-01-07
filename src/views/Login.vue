@@ -1,7 +1,7 @@
 <template>
   <form class="card auth-card" @submit.prevent="onSubmit">
     <div class="card-content">
-      <span class="card-title">Budget tracker</span>
+      <span class="card-title">{{'AppTitle' | locale}}</span>
       <div class="input-field">
         <input
           id="email"
@@ -13,11 +13,11 @@
         <small
           class="helper-text invalid"
           v-if="$v.email.$dirty && !$v.email.required"
-        >Email field should not be empty</small>
+        >{{'EmailNotEmpty' | locale}}</small>
         <small
           class="helper-text invalid"
           v-else-if="$v.email.$dirty && !$v.email.email"
-        >Please provide correct email</small>
+        >{{'ProvideEmail' | locale}}</small>
       </div>
       <div class="input-field">
         <input
@@ -26,15 +26,15 @@
           v-model.trim="password"
           :class="{invalid : ($v.password.$dirty && !$v.password.required) || ($v.password.$dirty && !$v.password.minLength)}"
         >
-        <label for="password">Password</label>
+        <label for="password">{{'Password' | locale}}</label>
         <small
           class="helper-text invalid"
           v-if="$v.password.$dirty && !$v.password.required"
-        >Password field should not be empty</small>
+        >{{'PasswordNotEmpty' | locale}}</small>
         <small
           class="helper-text invalid"
           v-else-if="$v.password.$dirty && !$v.password.minLength"
-        >Min. password length is {{$v.password.$params.minLength.min}} characters. Now it`s only {{password.length}}</small>
+        >{{'MinPassLength' | locale}} {{$v.password.$params.minLength.min}} {{'MinPassLength2' | locale}} {{password.length}}</small>
       </div>
     </div>
     <div class="card-action">
@@ -43,14 +43,14 @@
           class="btn waves-effect waves-light auth-submit"
           type="submit"
         >
-          Log in
+          {{'Login' | locale}}
           <i class="material-icons right">send</i>
         </button>
       </div>
 
       <p class="center">
-        Don`t have an account yet?
-        <router-link to="/register">Register</router-link>
+        {{'NoAccount' | locale}}
+        <router-link to="/register">{{'Register' | locale}}</router-link>
       </p>
     </div>
   </form>
@@ -59,9 +59,15 @@
 <script>
 import {email, required, minLength} from 'vuelidate/lib/validators'
 import toasts from '@/utils/toasts'
+import localeFilter from '@/filters/locale.filter'
 
 export default {
   name: 'login',
+  metaInfo() {
+    return {
+      title: this.$title('Login')
+    }
+  },
   data: () => ({
     email: '',
     password: ''
@@ -72,7 +78,7 @@ export default {
   },
   mounted() {
     if(toasts[this.$route.query.message]) {
-      this.$message(toasts[this.$route.query.message]);
+      this.$message(localeFilter(toasts[this.$route.query.message]))
     }
   },
   methods: {
@@ -89,8 +95,7 @@ export default {
       try {
         await this.$store.dispatch('login', formData)
         this.$router.push('/')
-      } catch(e) {
-      }
+      } catch (e) {}
     }
   }
 }

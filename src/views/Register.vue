@@ -1,59 +1,59 @@
 <template>
   <form class="card auth-card" @submit.prevent="submitHandler">
     <div class="card-content">
-      <span class="card-title">Budget tracker</span>
+      <span class="card-title">{{'AppTitle' | locale}}</span>
       <div class="input-field">
         <input
-                id="email"
-                type="text"
-                v-model.trim="email"
-                :class="{invalid : ($v.email.$dirty && !$v.email.required) || ($v.email.$dirty && !$v.email.email)}"
+          id="email"
+          type="text"
+          v-model.trim="email"
+          :class="{invalid : ($v.email.$dirty && !$v.email.required) || ($v.email.$dirty && !$v.email.email)}"
         >
         <label for="email">Email</label>
         <small
-                class="helper-text invalid"
-                v-if="$v.email.$dirty && !$v.email.required"
-        >Email field should not be empty</small>
+          class="helper-text invalid"
+          v-if="$v.email.$dirty && !$v.email.required"
+        >{{'EmailNotEmpty' | locale}}</small>
         <small
-                class="helper-text invalid"
-                v-else-if="$v.email.$dirty && !$v.email.email"
-        >Please provide correct email</small>
+          class="helper-text invalid"
+          v-else-if="$v.email.$dirty && !$v.email.email"
+        >{{'ProvideEmail' | locale}}</small>
       </div>
       <div class="input-field">
         <input
-                id="password"
-                type="password"
-                v-model.trim="password"
-                :class="{invalid : ($v.password.$dirty && !$v.password.required) || ($v.password.$dirty && !$v.password.minLength)}"
+          id="password"
+          type="password"
+          v-model.trim="password"
+          :class="{invalid : ($v.password.$dirty && !$v.password.required) || ($v.password.$dirty && !$v.password.minLength)}"
         >
-        <label for="password">Password</label>
+        <label for="password">{{'Password' | locale}}</label>
         <small
-                class="helper-text invalid"
-                v-if="$v.password.$dirty && !$v.password.required"
-        >Password field should not be empty</small>
+          class="helper-text invalid"
+          v-if="$v.password.$dirty && !$v.password.required"
+        >{{'PasswordNotEmpty' | locale}}</small>
         <small
-                class="helper-text invalid"
-                v-else-if="$v.password.$dirty && !$v.password.minLength"
-        >Min. password length is {{$v.password.$params.minLength.min}} characters. Now it`s only {{password.length}}</small>
-      </div>
+          class="helper-text invalid"
+          v-else-if="$v.password.$dirty && !$v.password.minLength"
+        >{{'MinPassLength' | locale}} {{$v.password.$params.minLength.min}} {{'MinPassLength2' | locale}} {{password.length}}</small>    </div>
       <div class="input-field">
         <input
-                id="name"
-                type="text"
-                v-model.trim="name"
-                :class="{invalid : ($v.name.$dirty && !$v.name.required)}"
+          id="name"
+          type="text"
+          v-model.trim="name"
+          :class="{invalid : ($v.name.$dirty && !$v.name.required)}"
         >
-        <label for="name">Name</label>
+        <label for="name">{{'Name' | locale}}</label>
         <small
-                class="helper-text invalid"
-                v-if="$v.name.$dirty && !$v.name.required"
-        >Name field should not be empty</small>
+          class="helper-text invalid"
+          v-if="$v.name.$dirty && !$v.name.required"
+        >{{'NameNotEmpty' | locale}}</small>
       </div>
       <p>
         <label>
-          <input type="checkbox" v-model="agree"/>
-          <span :class="{ noagree : ($v.name.$dirty && !agree.selected )}">
-            I agree with all the privacy policy statements
+          <input type="checkbox" v-model="agree" id="agree-to-terms"/>
+
+          <span for="agree-to-terms" :class="{noagree : ($v.name.$dirty && !agree.selected ), 'agreed' : agree}">
+            {{'Agreement' | locale}}
           </span>
         </label>
       </p>
@@ -61,17 +61,16 @@
     <div class="card-action">
       <div>
         <button
-                class="btn waves-effect waves-light auth-submit"
-                type="submit"
-        >
-          Register
+          class="btn waves-effect waves-light auth-submit"
+          type="submit">
+          {{'Register' | locale}}
           <i class="material-icons right">send</i>
         </button>
       </div>
 
       <p class="center">
-        Already have an account?
-        <router-link to="/login">Log in</router-link>
+        {{'AlreadyRegistered' | locale}}
+        <router-link to="/login"> {{'Login' | locale}}</router-link>
       </p>
     </div>
   </form>
@@ -82,6 +81,11 @@
 
 export default {
   name: 'register',
+  metaInfo() {
+    return {
+      title: this.$title('Register')
+    }
+  },
   data: () => ({
     email: '',
     password: '',
@@ -95,7 +99,7 @@ export default {
     agree: {checked: v=> v}
   },
   methods: {
-    submitHandler() {
+    async submitHandler() {
       if(this.$v.$invalid) {
         this.$v.$touch();
         return
@@ -107,7 +111,10 @@ export default {
         name: this.name
       }
 
-      this.$router.push('/');
+      try {
+        await this.$store.dispatch('register', formData)
+        this.$router.push('/')
+      } catch(e) {}
     }
   }
 }

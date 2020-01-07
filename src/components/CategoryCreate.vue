@@ -22,6 +22,19 @@
         </div>
 
         <div class="input-field">
+          <span>{{'ChooseType' | locale}}</span>
+          <select ref="selectType" v-model="type">
+            <option id="income">{{'Incomes' | locale}}</option>
+            <option id="expense" selected="selected">{{'Expenses' | locale}}</option>
+          </select>
+          <!--<span-->
+            <!--v-if="!$v.type.required"-->
+            <!--class="helper-text invalid">-->
+            <!--{{'ChooseType' | locale}}-->
+          <!--</span>-->
+        </div>
+
+        <div class="input-field">
           <input
             id="limit"
             type="number"
@@ -50,13 +63,16 @@ import localeFilter from '@/filters/locale.filter'
 export default {
   data: () => ({
     title: '',
-    limit: 50
+    limit: 50,
+    type: 'expense'
   }),
   validations: {
     title: {required},
-    limit: {minValue: minValue(50)}
+    limit: {minValue: minValue(50)},
+    // type: {required}
   },
   mounted() {
+    this.selectType = M.FormSelect.init(this.$refs.selectType)
     M.updateTextFields()
   },
   methods: {
@@ -68,10 +84,13 @@ export default {
       try {
         const category = await this.$store.dispatch('createCategory', {
           title: this.title,
-          limit: this.limit
+          limit: this.limit,
+          type: this.type,
+          archived: false
         })
         this.title = ''
         this.limit = '50'
+        this.type = null
         this.$v.$reset()
         this.$message(localeFilter('CatCreated'))
         this.$emit('created', category)

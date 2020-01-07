@@ -29,7 +29,9 @@
   "Register" : "Register",
   "NoCategories" : "There are no categories yet",
   "Income" : "Income",
+  "Incomes" : "Incomes",
   "Expense" : "Expense",
+  "Expenses" : "Expenses",
   "Description" : "Description",
   "RecordDoesntExist" : "Record does not exist",
   "NoRecords" : "There are no records yet.",
@@ -67,5 +69,8 @@
   "Error": "Error",
   "Details" : "Details",
   "Home" : "Home",
-  "recDeleted" : "The record was deleted successfully"
+  "recDeleted" : "The record was deleted successfully",
+  "catDeleted" : "The category was deleted successfully",
+  "Archive" : "Archive",
+  "ChooseType" : "Choose type"
 }

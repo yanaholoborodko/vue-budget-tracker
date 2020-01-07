@@ -6,7 +6,7 @@
       </div>
 
       <form @submit.prevent="onSubmit">
-        <div class="input-field" >
+        <div class="input-field">
           <span>{{'ChooseCategory' | locale}}</span>
           <select ref="select" v-model="current">
             <option

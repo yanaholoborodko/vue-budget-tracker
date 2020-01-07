@@ -44,15 +44,24 @@ export default {
         throw e
       }
     },
-    async createCategory({commit, dispatch}, {title, limit}) {
+    async createCategory({commit, dispatch}, {title, limit, type, archived}) {
       try {
         const uid = await dispatch('getUid')
-        const category = await firebase.database().ref(`/users/${uid}/categories`).push({title, limit})
-        return {title, limit, id: category.key}
+        const category = await firebase.database().ref(`/users/${uid}/categories`).push({title, limit, type, archived})
+        return {title, limit, type, archived, id: category.key}
       } catch (e) {
         commit('setError', e)
         throw e
       }
-    }
+    },
+    async archiveCategory({dispatch, commit}, id) {
+      try {
+        const uid = await dispatch('getUid')
+        return await firebase.database().ref(`/users/${uid}/categories`).child(id).update({archived : true})
+      } catch(e) {
+        commit('setError', e)
+        throw e
+      }
+    },
   }
 }

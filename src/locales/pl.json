@@ -29,7 +29,9 @@
   "Register" : "Zarejestruj się",
   "NoCategories" : "Brak kategorii",
   "Income" : "Dochód",
+  "Incomes" : "Dochody",
   "Expense" : "Wydatek",
+  "Expenses" : "Wydatki",
   "Description" : "Opis",
   "RecordDoesntExist" : "Rekord nie istnieje",
   "NoRecords" : "Brak rekordów",
@@ -67,5 +69,8 @@
   "Error": "Wystąpił błąd",
   "Details" : "Szczegóły",
   "Home" : "Główna",
-  "recDeleted" : "Rekord został usunięty pomyślnie"
+  "recDeleted" : "Rekord został usunięty pomyślnie",
+  "catDeleted" : "Kategoria została usunięta pomyślnie",
+  "Archive" : "Do archiwum",
+  "ChooseType" : "Wybierz typ"
 }

@@ -8,12 +8,17 @@
       <div v-else class="row">
         <CategoryCreate @created="addNewCategory"/>
 <!--когда :key меняется, то Vue вынужден перерисовать элемент, что нам и нужно-->
-        <CategoryEdit
-          v-if="categories.length"
-          :categories="categories"
-          :key="categories.length + updateCount"
-          @updated="updateCategories"
-        />
+        <div v-if="categories.length">
+          <!--<CategoryEdit-->
+            <!--:categories="categories"-->
+            <!--:key="categories.length + updateCount"-->
+            <!--@updated="updateCategories"-->
+          <!--/>-->
+         <CategoriesTable
+            :categories="categories"
+            :key="categories.length + updateCount"
+            @updated="updateCategories"/>
+        </div>
         <p v-else class="center">{{'NoCategories' | locale}}</p>
       </div>
     </section>
@@ -23,6 +28,7 @@
 <script>
   import CategoryCreate from '@/components/CategoryCreate'
   import CategoryEdit from '@/components/CategoryEdit'
+  import CategoriesTable from "../components/CategoriesTable";
 export default {
   metaInfo() {
     return {
@@ -40,7 +46,9 @@ export default {
     this.loading = false
   },
   components: {
-    CategoryCreate, CategoryEdit
+    CategoriesTable,
+    CategoryCreate,
+    CategoryEdit
   },
   methods: {
     addNewCategory(category) {

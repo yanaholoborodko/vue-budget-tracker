@@ -70,7 +70,11 @@
   "Details" : "Szczegóły",
   "Home" : "Główna",
   "recDeleted" : "Rekord został usunięty pomyślnie",
-  "catDeleted" : "Kategoria została usunięta pomyślnie",
+  "catArchived" : "Kategoria została usunięta pomyślnie",
   "Archive" : "Do archiwum",
-  "ChooseType" : "Wybierz typ"
+  "ChooseType" : "Wybierz typ",
+  "catActive" : "Kategoria została aktywowana",
+  "SeeArchived" : "Zobacz zarchiwowane",
+  "SeeActive" : "Zobacz aktywne",
+  "Status": "Status"
 }

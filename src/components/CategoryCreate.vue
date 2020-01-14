@@ -24,8 +24,8 @@
         <div class="input-field">
           <span>{{'ChooseType' | locale}}</span>
           <select ref="selectType" v-model="type">
-            <option id="income">{{'Incomes' | locale}}</option>
-            <option id="expense" selected="selected">{{'Expenses' | locale}}</option>
+            <option id="income">{{'Income' | locale}}</option>
+            <option id="expense" selected="selected">{{'Expense' | locale}}</option>
           </select>
           <!--<span-->
             <!--v-if="!$v.type.required"-->
@@ -34,7 +34,7 @@
           <!--</span>-->
         </div>
 
-        <div class="input-field">
+        <div v-if="type=='Expense'" class="input-field">
           <input
             id="limit"
             type="number"
@@ -64,7 +64,7 @@ export default {
   data: () => ({
     title: '',
     limit: 50,
-    type: 'expense'
+    type: 'Expense'
   }),
   validations: {
     title: {required},

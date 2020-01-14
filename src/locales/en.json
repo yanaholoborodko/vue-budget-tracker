@@ -70,7 +70,11 @@
   "Details" : "Details",
   "Home" : "Home",
   "recDeleted" : "The record was deleted successfully",
-  "catDeleted" : "The category was deleted successfully",
+  "catArchived" : "The category was archived successfully",
+  "catActive" : "The category was moved to active",
   "Archive" : "Archive",
-  "ChooseType" : "Choose type"
+  "ChooseType" : "Choose type",
+  "SeeArchived" : "See Archived",
+  "SeeActive" : "See Active",
+  "Status": "Status"
 }

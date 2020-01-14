@@ -63,5 +63,14 @@ export default {
         throw e
       }
     },
+    async activeCategory({dispatch, commit}, id) {
+          try {
+            const uid = await dispatch('getUid')
+            return await firebase.database().ref(`/users/${uid}/categories`).child(id).update({archived : false})
+          } catch(e) {
+            commit('setError', e)
+            throw e
+          }
+        },
   }
 }

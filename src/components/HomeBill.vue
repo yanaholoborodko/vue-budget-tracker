@@ -3,12 +3,7 @@
     <div class="card light-blue bill-card">
       <div class="card-content white-text">
         <span class="card-title">{{ 'AccountForeignCurr' | locale }}</span>
-
-        <p
-          v-for="cur in currencies"
-          :key="cur"
-          class="currency-line"
-        >
+        <p v-for="cur in currencies" :key="cur" class="currency-line">
           <span>
             {{ getCurrency(cur) | currency(cur) }}
           </span>

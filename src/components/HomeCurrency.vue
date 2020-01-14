@@ -31,7 +31,7 @@
 export default {
   props: ['rates', 'date'],
   data: () => ({
-    currencies: ['EUR', 'USD', 'UAH']
+    currencies: ['PLN', 'EUR', 'USD']
   }),
 }
 </script>

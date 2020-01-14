@@ -15,6 +15,6 @@ export default function dateFilter(value, format = "date") {
     // options.second = '2-digit'
   }
 
-  const locale = store.getters.info.locale || "en-GB";
+  const locale = store.getters.info.locale || "en - GB";
   return new Intl.DateTimeFormat(locale, options).format(new Date(value));
 }

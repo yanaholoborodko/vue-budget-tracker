@@ -4,8 +4,14 @@
       <h3>{{'RecordHistory' | locale}}</h3>
     </div>
 
-    <div class="history-chart">
-      <canvas ref="canvas"></canvas>
+    <div class="row">
+      <div class="col s12 m6 l4 offset-l1 column-chart">
+        <canvas id="column"></canvas>
+      </div>
+
+      <div class="col s12 m6 l6 history-chart">
+        <canvas id="pie" ref="canvas"></canvas>
+      </div>
     </div>
 
     <Loader v-if="loading"/>
@@ -50,9 +56,34 @@ export default {
   }),
   async mounted() {
     this.records = await this.$store.dispatch('fetchRecords')
-    const categories = await this.$store.dispatch('fetchCategories')
+    const categories = await this.$store.dispatch('fetchActiveCategories')
     this.setup(categories)
     this.loading = false
+    this.initColummChart()
+  },
+  computed: {
+    expTotal() {
+      let tot = 0
+      this.records.reduce((total, r) => {
+        if(r.type === 'Expense') {
+          total += +r.amount
+        }
+        tot = total
+        return total
+      }, 0)
+      return tot
+    },
+    incTotal() {
+      let tot = 0
+      this.records.reduce((total, r) => {
+        if(r.type === 'Income') {
+          total += +r.amount
+        }
+        tot = total
+        return total
+      }, 0)
+      return tot
+    }
   },
   methods: {
     setup(categories) {
@@ -62,17 +93,17 @@ export default {
           categoryName: categories.find(c => c.id === record.categoryId).title,
           typeClass: record.type === 'Income' ? 'green' : 'red',
           typeText:
-            record.type === 'Income'
-                ? localeFilter('Income')
-                : localeFilter('Expense')
+              record.type === 'Income'
+                  ? localeFilter('Income')
+                  : localeFilter('Expense')
         }
       }))
 
       this.renderChart({
-        labels: categories.map(c => c.title),
+        labels: categories.filter(cat => cat.type === 'Expense').map(c => c.title),
         datasets: [{
           label: localeFilter('CategoryExpenses'),
-          data: categories.map(c => {
+          data: categories.filter(cat => cat.type === 'Expense').map(c => {
             return this.records.reduce((total, r) => {
               if(r.categoryId === c.id && r.type === 'Expense') {
                 total += +r.amount
@@ -99,6 +130,28 @@ export default {
           borderWidth: 1
         }]
       })
+    },
+    initColummChart() {
+      let ctx = document.getElementById('column').getContext('2d');
+      let column = new Chart(ctx, {
+        type: 'horizontalBar',
+        data: {
+          labels: ['Incomes', 'Expenses'],
+          datasets: [{
+            label: 'January',
+            data: [this.incTotal, this.expTotal],
+            backgroundColor: [
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(255, 99, 132, 0.2)'
+            ],
+            borderColor: [
+              'rgba(75, 192, 192, 1)',
+              'rgba(255, 99, 132, 1)'
+            ],
+            borderWidth: 1
+          }]
+        }
+      });
     }
   },
   components: {

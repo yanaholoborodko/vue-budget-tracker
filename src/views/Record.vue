@@ -39,7 +39,7 @@
       <div>
         <select class="select-input" v-model="category">
           <option v-for="c in categories" v-bind:value="c.id" v-if="c.type === type">
-              {{ c.title }} , {{ c.type }}
+              {{ c.title }}
           </option>
         </select>
       </div>

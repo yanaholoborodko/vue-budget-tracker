@@ -49,15 +49,16 @@ export default {
   },
   async mounted() {
     const records = await this.$store.dispatch('fetchRecords')
-    const categories = await this.$store.dispatch('fetchCategories')
-
-    this.categories = categories.map(cat => {
-      const spent = records
-        .filter(r => r.categoryId === cat.id)
-        .filter(r => r.type === 'expense')
-        .reduce((total, record) => {
-          return total += +record.amount
-        }, 0)
+    const categories = await this.$store.dispatch('fetchActiveCategories')
+    this.categories = categories
+        .filter(c => c.type === 'Expense')
+        .map(cat => {
+          const spent = records
+            .filter(r => r.categoryId === cat.id)
+            .filter(r => r.type === 'Expense')
+            .reduce((total, record) => {
+              return total += +record.amount
+            }, 0)
       const percent = 100 * spent / cat.limit
       const progressPercent = percent > 100? 100 : percent
 

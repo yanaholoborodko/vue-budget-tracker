@@ -10,18 +10,8 @@
       <router-link to="/categories">{{'CreateCategory' | locale}}</router-link>
     </p>
     <form v-else class="form" @submit.prevent="onSubmit">
-      <div class="input-field" >
-        <select ref="select" v-model="category">
-          <option
-            v-for="c in categories"
-            :key="c.id"
-            :value="c.id"
-          >{{c.title}}</option>
-        </select>
-        <span>{{'ChooseCategory' | locale}}</span>
-      </div>
 
-      <p>
+     <p>
         <label>
           <input
             class="with-gap"
@@ -46,6 +36,26 @@
           <span>{{'Expense' | locale}}</span>
         </label>
       </p>
+
+      <div class="input-field" v-if="type == 'income'">
+        <select ref="select">
+          <option
+            v-for="ci in catIncome"
+            :key="ci.id"
+          >{{ci.title}}</option>
+        </select>
+        <span>{{'ChooseCategory' | locale}}</span>
+      </div>
+
+       <div class="input-field" v-else-if="type == 'expense'">
+            <select ref="select">
+              <option
+                v-for="ce in catExpense"
+                :key="ce.id"
+              >{{ce.title}}</option>
+            </select>
+            <span>{{'ChooseCategory' | locale}}</span>
+          </div>
 
       <div class="input-field">
         <input
@@ -100,22 +110,30 @@ export default {
     loading: true,
     select: null,
     categories: [],
-    category: null,
+    // category: null,
     type: 'expense',
     amount: 1,
-    description: ''
+    description: '',
+    catIncome: [],
+    catExpense: []
   }),
   validations: {
     amount: {minValue: minValue(1)},
     description: {required}
   },
   async mounted() {
-    this.categories = await this.$store.dispatch('fetchCategories')
+    this.categories = await this.$store.dispatch('fetchActiveCategories')
     this.loading = false
 
-    if (this.categories.length) {
-      this.category = this.categories[0].id
-    }
+    // if (this.categories.length) {
+    //   this.category = this.categories[0].id
+    // }
+
+    this.catExpense = this.categories
+              .filter(c => c.type === 'Expense')
+
+    this.catIncome = this.categories
+            .filter(c => c.type === 'Income')
 
     setTimeout(() => {
       this.select = M.FormSelect.init(this.$refs.select)

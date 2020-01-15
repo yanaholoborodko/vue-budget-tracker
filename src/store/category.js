@@ -24,6 +24,18 @@ export default {
         throw e
       }
     },
+    async fetchActiveCategories({commit, dispatch}) {
+      try {
+        const uid = await dispatch('getUid')
+        const categories = (await firebase.database().ref(`/users/${uid}/categories`).orderByChild("archived").equalTo(false)
+            .once('value')).val() || {}
+
+        return Object.keys(categories).map(key => ({...categories[key], id: key}))
+      } catch (e) {
+        commit('setError', e)
+        throw e
+      }
+    },
     async fetchCategoryById({commit, dispatch}, id) {
       try {
         const uid = await dispatch('getUid')

@@ -10,52 +10,39 @@
       <router-link to="/categories">{{'CreateCategory' | locale}}</router-link>
     </p>
     <form v-else class="form" @submit.prevent="onSubmit">
-
-     <p>
-        <label>
-          <input
-            class="with-gap"
-            name="type"
-            type="radio"
-            value="income"
-            v-model="type"
-          />
-          <span>{{'Income' | locale}}</span>
-        </label>
-      </p>
-
       <p>
         <label>
           <input
             class="with-gap"
             name="type"
             type="radio"
-            value="expense"
+            value="Expense"
             v-model="type"
           />
           <span>{{'Expense' | locale}}</span>
         </label>
       </p>
 
-      <div class="input-field" v-if="type == 'income'">
-        <select ref="select">
-          <option
-            v-for="ci in catIncome"
-            :key="ci.id"
-          >{{ci.title}}</option>
-        </select>
-        <span>{{'ChooseCategory' | locale}}</span>
-      </div>
+      <p>
+        <label>
+          <input
+              class="with-gap"
+              name="type"
+              type="radio"
+              value="Income"
+              v-model="type"
+          />
+          <span>{{'Income' | locale}}</span>
+        </label>
+      </p>
 
-       <div class="input-field" v-else-if="type == 'expense'">
-            <select ref="select">
-              <option
-                v-for="ce in catExpense"
-                :key="ce.id"
-              >{{ce.title}}</option>
-            </select>
-            <span>{{'ChooseCategory' | locale}}</span>
-          </div>
+      <div>
+        <select class="select-input" v-model="category">
+          <option v-for="c in categories" v-bind:value="c.id" v-if="c.type === type">
+              {{ c.title }} , {{ c.type }}
+          </option>
+        </select>
+      </div>
 
       <div class="input-field">
         <input
@@ -108,14 +95,11 @@ export default {
   },
   data: () => ({
     loading: true,
-    select: null,
     categories: [],
-    // category: null,
-    type: 'expense',
+    type: 'Expense',
     amount: 1,
     description: '',
-    catIncome: [],
-    catExpense: []
+    category: 'Choose category'
   }),
   validations: {
     amount: {minValue: minValue(1)},
@@ -125,25 +109,14 @@ export default {
     this.categories = await this.$store.dispatch('fetchActiveCategories')
     this.loading = false
 
-    // if (this.categories.length) {
-    //   this.category = this.categories[0].id
-    // }
-
-    this.catExpense = this.categories
-              .filter(c => c.type === 'Expense')
-
-    this.catIncome = this.categories
-            .filter(c => c.type === 'Income')
-
     setTimeout(() => {
-      this.select = M.FormSelect.init(this.$refs.select)
       M.updateTextFields()
     }, 0)
   },
   computed: {
     ...mapGetters(['info']),
     canCreateRecord() {
-      if(this.type === 'income') {
+      if(this.type === 'Income') {
         return true
       }
 
@@ -166,7 +139,7 @@ export default {
             type: this.type,
             date: new Date().toJSON()
           })
-          const bill = this.type === 'income'
+          const bill = this.type === 'Income'
             ? this.info.bill + this.amount
             : this.info.bill - this.amount
 
@@ -182,11 +155,6 @@ export default {
             this.info.bill})`
         )
       }
-    }
-  },
-  destroyed() {
-    if(this.select && this.select.destroy) {
-      this.select.destroy()
     }
   }
 }

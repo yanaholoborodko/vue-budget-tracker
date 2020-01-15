@@ -4,7 +4,7 @@
       <h3>{{'RecordHistory' | locale}}</h3>
     </div>
 
-    <div class="row">
+    <div class="row" v-if="records.length > 0">
       <div class="col s12 m6 l4 offset-l1 column-chart">
         <canvas id="column"></canvas>
       </div>
@@ -59,7 +59,9 @@ export default {
     const categories = await this.$store.dispatch('fetchActiveCategories')
     this.setup(categories)
     this.loading = false
-    this.initColummChart()
+    if(this.records.length > 0) {
+      this.initColummChart()
+    }
   },
   computed: {
     expTotal() {
@@ -150,6 +152,15 @@ export default {
             ],
             borderWidth: 1
           }]
+        },
+        options: {
+          scales: {
+            xAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          }
         }
       });
     }

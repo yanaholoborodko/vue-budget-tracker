@@ -61,6 +61,7 @@ export default {
     this.loading = false
     if(this.records.length > 0) {
       this.initColummChart()
+      this.initPieChart(categories)
     }
   },
   computed: {
@@ -100,8 +101,10 @@ export default {
                   : localeFilter('Expense')
         }
       }))
-
-      this.renderChart({
+    },
+    initPieChart(categories) {
+      let ctx = document.getElementById('pie').getContext('2d');
+      let pie = new Chart(ctx, {
         labels: categories.filter(cat => cat.type === 'Expense').map(c => c.title),
         datasets: [{
           label: localeFilter('CategoryExpenses'),
